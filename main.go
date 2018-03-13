@@ -41,7 +41,7 @@ func main() {
 
 	case *listFlag:
 		// list of modules
-		fmt.Printf("List of starters :")
+		fmt.Printf("List of starters :\n")
 		list := starter.List()
 		for inx, s := range list {
 			inx := inx + 1
