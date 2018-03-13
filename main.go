@@ -79,4 +79,7 @@ func main() {
 		}
 		return
 	}
+
+	// help flag
+	flag.Usage()
 }
