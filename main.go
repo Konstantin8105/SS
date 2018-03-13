@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/Konstantin8105/SS/module"
 	_ "github.com/Konstantin8105/SS/nginx"
+	"github.com/Konstantin8105/SS/starter"
 )
 
 var (
@@ -17,11 +17,13 @@ var (
 func main() {
 	flag.Parse()
 	flag.Usage()
-	fmt.Println("drivers : ", module.Drivers())
+	fmt.Println("drivers : ", starter.Drivers())
 	// nginx
 	// ssh
 	// backup
 	// systemd
 	// git server
 	// git web
+	// localhost
+	// router settings
 }

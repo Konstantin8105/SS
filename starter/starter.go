@@ -1,17 +1,20 @@
-package module
+package starter
 
 import (
 	"sort"
-
-	"github.com/Konstantin8105/SS/driver"
 )
 
+type iStarter interface {
+	Test()
+	Set()
+}
+
 var (
-	drivers map[string]driver.Driver
+	starters map[string]iStarter
 )
 
 func init() {
-	drivers = map[string]driver.Driver{}
+	starters = map[string]iStarter{}
 }
 
 // Drivers returns a sorted list of the names of the registered drivers.
@@ -19,7 +22,7 @@ func Drivers() []string {
 	// driversMu.RLock()
 	// defer driversMu.RUnlock()
 	var list []string
-	for name := range drivers {
+	for name := range starters {
 		list = append(list, name)
 	}
 	sort.Strings(list)
@@ -29,18 +32,17 @@ func Drivers() []string {
 // Register makes a database driver available by the provided name.
 // If Register is called twice with the same name or if driver is nil,
 // it panics.
-func Register(name string, driver driver.Driver) {
+func Register(name string, starter iStarter) {
 	// driversMu.Lock()
 	// defer driversMu.Unlock()
 
-	if driver == nil {
+	if starter == nil {
 		panic("sql: Register driver is nil")
 	}
 
-	if _, dup := drivers[name]; dup {
+	if _, dup := starters[name]; dup {
 		panic("sql: Register called twice for driver " + name)
 	}
 
-	drivers[name] = driver
-
+	starters[name] = starter
 }

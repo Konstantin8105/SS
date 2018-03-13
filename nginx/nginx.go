@@ -1,10 +1,10 @@
 package nginx
 
-import "github.com/Konstantin8105/SS/module"
+import "github.com/Konstantin8105/SS/starter"
 
 func init() {
 	var n Nginx
-	module.Register("nginx", n)
+	starter.Register("nginx", n)
 }
 
 type Nginx struct {
