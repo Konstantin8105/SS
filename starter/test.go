@@ -5,4 +5,6 @@ func Test(starterName string) {
 	m.Lock()
 	defer m.Unlock()
 	isStarter(starterName)
+
+	starters[starterName].Test()
 }

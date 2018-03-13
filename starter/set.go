@@ -5,4 +5,6 @@ func Set(starterName string) {
 	m.Lock()
 	defer m.Unlock()
 	isStarter(starterName)
+
+	starters[starterName].Set()
 }
