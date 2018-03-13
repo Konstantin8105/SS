@@ -17,7 +17,7 @@ var (
 func main() {
 	flag.Parse()
 	flag.Usage()
-	fmt.Println("drivers : ", starter.Drivers())
+	fmt.Println("starters : ", starter.List())
 	// nginx
 	// ssh
 	// backup

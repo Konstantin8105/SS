@@ -2,6 +2,7 @@ package starter
 
 import (
 	"sort"
+	"sync"
 )
 
 type iStarter interface {
@@ -11,16 +12,18 @@ type iStarter interface {
 
 var (
 	starters map[string]iStarter
+	m        sync.Mutex
 )
 
 func init() {
 	starters = map[string]iStarter{}
 }
 
-// Drivers returns a sorted list of the names of the registered drivers.
-func Drivers() []string {
-	// driversMu.RLock()
-	// defer driversMu.RUnlock()
+// List returns a sorted list of the names of the registered starters.
+func List() []string {
+	m.Lock()
+	defer m.Unlock()
+
 	var list []string
 	for name := range starters {
 		list = append(list, name)
@@ -29,19 +32,19 @@ func Drivers() []string {
 	return list
 }
 
-// Register makes a database driver available by the provided name.
-// If Register is called twice with the same name or if driver is nil,
+// Register makes a starter available by the provided name.
+// If Register is called twice with the same name or if starter is nil,
 // it panics.
 func Register(name string, starter iStarter) {
-	// driversMu.Lock()
-	// defer driversMu.Unlock()
+	m.Lock()
+	defer m.Unlock()
 
 	if starter == nil {
-		panic("sql: Register driver is nil")
+		panic("Starter is nil")
 	}
 
 	if _, dup := starters[name]; dup {
-		panic("sql: Register called twice for driver " + name)
+		panic("Starter called twice for " + name)
 	}
 
 	starters[name] = starter
