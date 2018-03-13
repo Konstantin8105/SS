@@ -1,4 +1,4 @@
-# SS
+# ss
 
 [![Coverage Status](https://coveralls.io/repos/github/Konstantin8105/ss/badge.svg?branch=master)](https://coveralls.io/github/Konstantin8105/ss?branch=master)
 [![Build Status](https://travis-ci.org/Konstantin8105/ss.svg?branch=master)](https://travis-ci.org/Konstantin8105/ss)
