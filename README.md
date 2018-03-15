@@ -7,3 +7,6 @@
 [![GoDoc](https://godoc.org/github.com/Konstantin8105/ss?status.svg)](https://godoc.org/github.com/Konstantin8105/ss)
 
 Server starter(ssh, nginx, backup, ...)
+
+
+Concept: HY - hack youself
