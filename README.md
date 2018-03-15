@@ -10,3 +10,5 @@ Server starter(ssh, nginx, backup, ...)
 
 
 Concept: HY - hack youself
+
+Password checking : https://github.com/danielmiessler/SecLists/tree/master/Passwords
