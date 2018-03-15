@@ -42,6 +42,9 @@ func TestCLI(t *testing.T) {
 			}
 		})
 	}
+	// return value back
+	f := false
+	listFlag = &f
 }
 
 func TestEmptyList(t *testing.T) {
@@ -81,11 +84,14 @@ func TestHelp(t *testing.T) {
 }
 
 func TestSettingTest(t *testing.T) {
-	os.Args = []string{"./ss", "-t"}
+	os.Args = []string{"program", "-t"}
 	code := run()
 	if code != 0 {
 		t.Errorf("Exit code for flag '-t' is %v", code)
 	}
+	// return value back
+	f := false
+	testFlag = &f
 }
 
 /*
