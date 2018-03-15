@@ -80,6 +80,14 @@ func TestHelp(t *testing.T) {
 	}
 }
 
+func TestSettingTest(t *testing.T) {
+	os.Args = []string{"./ss", "-t"}
+	code := run()
+	if code != 0 {
+		t.Errorf("Exit code for flag '-t' is %v", code)
+	}
+}
+
 /*
 func TestIntegration(t *testing.T) {
 	if os.Getenv("TRAVIS") != "true" {

@@ -47,12 +47,13 @@ Notes:
 */
 
 func main() {
-	run()
+	code := run()
+	os.Exit(code)
 }
 
 var output io.Writer = os.Stdout
 
-func run() {
+func run() int {
 	flag.Parse()
 
 	switch {
@@ -76,7 +77,10 @@ func run() {
 		for inx, s := range list {
 			inx := inx + 1
 			fmt.Fprintf(output, "%2d%20s\n", inx, s)
-			starter.Test(s)
+			err := starter.Test(s)
+			if err != nil {
+				return 1
+			}
 		}
 
 	case *setFlag:
@@ -92,4 +96,5 @@ func run() {
 		// help flag
 		flag.Usage()
 	}
+	return 0
 }
