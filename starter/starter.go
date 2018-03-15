@@ -8,7 +8,7 @@ import (
 
 // Starter - base interface
 type Starter interface {
-	Test()
+	Test() error
 	Set()
 }
 

@@ -3,9 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
+	"os"
 
 	// nginx
-	_ "github.com/Konstantin8105/SS/nginx"
+	// _ "github.com/Konstantin8105/ss/nginx"
+
+	// htop
+	_ "github.com/Konstantin8105/ss/htop"
 
 	// ssh
 	// backup
@@ -14,6 +19,8 @@ import (
 	// git web
 	// localhost
 	// router settings
+	// vim
+	// system update
 
 	// base `starter` package
 	"github.com/Konstantin8105/SS/starter"
@@ -31,30 +38,44 @@ var (
 	setFlag     = flag.Bool("s", false, "set settings")
 )
 
+/*
+Notes:
+* https://blog.golang.org/docker
+* https://stackoverflow.com/questions/26411594/executing-docker-command-using-golang-exec-fails
+* https://github.com/betweenbrain/ubuntu-web-server-build-script
+* https://medium.com/statuscode/golang-docker-for-development-and-production-ce3ad4e69673
+*/
+
 func main() {
+	run()
+}
+
+var output io.Writer = os.Stdout
+
+func run() {
 	flag.Parse()
 
 	switch {
 	case *versionFlag:
 		// version flag
-		fmt.Printf("Version : %s\n", version)
+		fmt.Fprintf(output, "Version : %s\n", version)
 
 	case *listFlag:
 		// list of modules
-		fmt.Printf("List of starters :\n")
+		fmt.Fprintf(output, "List of starters :\n")
 		list := starter.List()
 		for inx, s := range list {
 			inx := inx + 1
-			fmt.Printf("%2d%20s\n", inx, s)
+			fmt.Fprintf(output, "%2d%20s\n", inx, s)
 		}
-		fmt.Printf("Amount of starters : %2d\n", len(list))
+		fmt.Fprintf(output, "Amount of starters : %2d\n", len(list))
 
 	case *testFlag:
 		// testing settings
 		list := starter.List()
 		for inx, s := range list {
 			inx := inx + 1
-			fmt.Printf("%2d%20s\n", inx, s)
+			fmt.Fprintf(output, "%2d%20s\n", inx, s)
 			starter.Test(s)
 		}
 
@@ -63,7 +84,7 @@ func main() {
 		list := starter.List()
 		for inx, s := range list {
 			inx := inx + 1
-			fmt.Printf("%2d%20s\n", inx, s)
+			fmt.Fprintf(output, "%2d%20s\n", inx, s)
 			starter.Set(s)
 		}
 
