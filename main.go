@@ -23,7 +23,7 @@ import (
 	// system update
 
 	// base `starter` package
-	"github.com/Konstantin8105/SS/starter"
+	"github.com/Konstantin8105/ss/starter"
 )
 
 const (

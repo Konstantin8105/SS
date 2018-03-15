@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"testing"
 
-	"github.com/Konstantin8105/SS/starter"
+	"github.com/Konstantin8105/ss/starter"
 	"github.com/bradleyjkemp/cupaloy"
 )
 

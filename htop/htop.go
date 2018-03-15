@@ -3,7 +3,7 @@ package htop
 import (
 	"fmt"
 
-	"github.com/Konstantin8105/SS/starter"
+	"github.com/Konstantin8105/ss/starter"
 )
 
 func init() {
@@ -18,9 +18,9 @@ var (
 type Htop struct {
 }
 
-func (m Htop) Test() error {
+func (m Htop) Test() (err error) {
 	fmt.Println("htop: Test")
-	err := starter.IsInstalled(name)
+	err = starter.IsInstalled(name)
 	if err != nil {
 		return err
 	}

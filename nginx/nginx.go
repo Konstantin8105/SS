@@ -2,12 +2,13 @@ package nginx
 
 import (
 	"fmt"
+
+	"github.com/Konstantin8105/ss/starter"
 )
 
 func init() {
 	var n Nginx
-	_ = n
-	// starter.Register("nginx", n)
+	starter.Register("nginx", n)
 }
 
 type Nginx struct {
