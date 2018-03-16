@@ -3,6 +3,7 @@
 set -e
 
 OUTFILE=/tmp/out.txt
+COVERPROFILE_DIR=.coverprofile
 
 function cleanup {
     EXIT_STATUS=$?
@@ -15,7 +16,9 @@ function cleanup {
 }
 trap cleanup EXIT
 
-echo "" > .coverprofile/coverage.txt
+mkdir $COVERPROFILE_DIR
+
+echo "" > $COVERPROFILE_DIR/coverage.txt
 
 export PKGS=$(go list ./... | grep -v /vendor/)
 
@@ -29,15 +32,15 @@ export PKGS_DELIM=$(echo "$PKGS" | paste -sd "," -)
 #
 # Exit code 123 will be returned if any of the tests fail.
 rm -f $OUTFILE
-go list -f 'go test -v -tags integration -race -covermode atomic -coverprofile .coverprofile/{{.Name}}.coverprofile -coverpkg $PKGS_DELIM {{.ImportPath}}' $PKGS | xargs -I{} bash -c "{} >> $OUTFILE"
+go list -f 'go test -v -tags integration -race -covermode atomic -coverprofile $COVERPROFILE_DIR/{{.Name}}.coverprofile -coverpkg $PKGS_DELIM {{.ImportPath}}' $PKGS | xargs -I{} bash -c "{} >> $OUTFILE"
 
 # Merge coverage profiles.
-COVERAGE_FILES=`ls -1 .coverprofile/*.coverprofile 2>/dev/null | wc -l`
+COVERAGE_FILES=`ls -1 $COVERPROFILE_DIR/*.coverprofile 2>/dev/null | wc -l`
 if [ $COVERAGE_FILES != 0 ]; then
 	# check program `gocovmerge` is exist
 	if which gocovmerge >/dev/null 2>&1; then
-		gocovmerge `ls .coverprofile/*.coverprofile` > coverage.txt
-		rm .coverprofile/*.coverprofile
+		gocovmerge `ls $COVERPROFILE_DIR/*.coverprofile` > coverage.txt
+		rm COVERPROFILE_DIR/*.coverprofile
 	fi
 fi
 
@@ -49,3 +52,5 @@ echo "Unit tests: ${UNIT_TESTS}"
 echo "Integration tests: ${INT_TESTS}"
 
 cat $OUTFILE
+
+rm -rf $COVERPROFILE_DIR
