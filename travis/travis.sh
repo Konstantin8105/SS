@@ -19,8 +19,14 @@ if [ -f "$OUTFILE" ]; then
 	rm -f $OUTFILE
 fi
 
-rm -f *.coverprofile
-rm coverage.txt
+COVERAGE_FILES=`ls -1 *.coverprofile 2>/dev/null | wc -l`
+if [ $COVERAGE_FILES != 0 ]; then
+	rm -f *.coverprofile
+fi
+
+if [ -f coverage.txt ]; then
+	rm -f coverage.txt
+fi
 
 export PKGS=$(go list ./... | grep -v /vendor/)
 
@@ -43,6 +49,7 @@ if [ $COVERAGE_FILES != 0 ]; then
 	if which gocovmerge >/dev/null 2>&1; then
 		gocovmerge `ls *.coverprofile` > coverage.txt
 	fi
+	rm -f *.coverprofile
 fi
 
 # Print stats
@@ -54,5 +61,6 @@ echo "Integration tests: ${INT_TESTS}"
 
 cat $OUTFILE
 
-rm -f *.coverprofile
-rm coverage.txt
+if [ -f coverage.txt ]; then
+	rm -f coverage.txt
+fi
