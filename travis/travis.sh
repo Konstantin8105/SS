@@ -17,7 +17,7 @@ trap cleanup EXIT
 
 echo "" > .coverprofile/coverage.txt
 
-export PKGS=$(go list ./... | grep -v c2go/build | grep -v /vendor/)
+export PKGS=$(go list ./... | grep -v /vendor/)
 
 # Make comma-separated.
 export PKGS_DELIM=$(echo "$PKGS" | paste -sd "," -)
