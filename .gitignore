@@ -7,6 +7,10 @@
 # Self program
 ss
 
+# coverprofile is only for test
+# no need to add in git
+.coverprofile/*
+
 # Test binary, build with `go test -c`
 *.test
 
