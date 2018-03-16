@@ -1,0 +1,3 @@
+#!/bin/bash
+
+UPDATE_SNAPSHOTS=true go test ./...
