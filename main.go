@@ -7,7 +7,7 @@ import (
 	"os"
 
 	// nginx
-	// _ "github.com/Konstantin8105/ss/nginx"
+	_ "github.com/Konstantin8105/ss/nginx"
 
 	// htop
 	_ "github.com/Konstantin8105/ss/htop"
