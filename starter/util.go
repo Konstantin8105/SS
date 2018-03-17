@@ -44,6 +44,7 @@ again:
 	return out.Bytes(), nil
 }
 
+// IsInstalled - check program is installed
 func IsInstalled(name string) error {
 	out, err := run("dpkg", "-s", name)
 	if err != nil {
@@ -61,6 +62,7 @@ func IsInstalled(name string) error {
 	return nil
 }
 
+// Install - install program
 func Install(name string) (err error) {
 	_, err = run("apt", "install", "-y", name)
 	if err != nil {

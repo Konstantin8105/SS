@@ -27,6 +27,9 @@ func List() map[string]Starter {
 	return starters
 }
 
+// SetCommandPrefix - add prefix before each command.
+// Typically used for ssh, docker, ...
+// Example for ssh prefix is `ssh some@localhost`
 func SetCommandPrefix(prefix string) {
 	m.Lock()
 	defer m.Unlock()
