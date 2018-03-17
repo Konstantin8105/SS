@@ -1,7 +1,6 @@
 package starter
 
 import (
-	"fmt"
 	"sync"
 )
 
@@ -50,13 +49,4 @@ func Register(name string, starter Starter) {
 	}
 
 	starters[name] = starter
-}
-
-func isStarter(starterName string) {
-	for s := range starters {
-		if s == starterName {
-			return
-		}
-	}
-	panic(fmt.Errorf("Cannot found starter with name : %s", starterName))
 }
