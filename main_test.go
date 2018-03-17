@@ -1,5 +1,3 @@
-// +build integration
-
 package main
 
 import (
@@ -89,7 +87,6 @@ func TestLocally(t *testing.T) {
 	// TODO : starter.SetCommandPrefix(" docker run ubuntu:16.04 ")
 
 	var err error
-	// Set changes
 	{
 		var fl bool
 		fl = true
