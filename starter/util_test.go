@@ -16,6 +16,14 @@ func TestRunWithEmptyArgument(t *testing.T) {
 	}
 }
 
+func TestRunFail(t *testing.T) {
+	_, err := run()
+	if err == nil {
+		t.Errorf("Cannot error for empty program arguments")
+	}
+
+}
+
 func TestInstallFail(t *testing.T) {
 	name := "SomeStrangeProgram"
 	if IsInstalled(name) == nil {

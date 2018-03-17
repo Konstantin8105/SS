@@ -13,6 +13,10 @@ func run(programArgs ...string) (_ []byte, err error) {
 			err = fmt.Errorf("Cannot run program. err = %v", err)
 		}
 	}()
+	if len(programArgs) == 0 {
+		err = fmt.Errorf("Program argument is empty")
+		return
+	}
 	command := strings.Split(commandPrefix, " ")
 	command = append(command, programArgs...)
 	for i := range command {
