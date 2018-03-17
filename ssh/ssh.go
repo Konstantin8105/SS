@@ -31,5 +31,23 @@ func (n SSH) Run() (err error) {
 		return err
 	}
 
+	// TODO:
+	/*
+		Create `SSH` connection:
+		```
+		$ sudo vim /etc/ssh/sshd_config
+		```
+		Generate RSA
+
+		Change config:
+		```
+		Port 222
+		MaxAuthTries 3 # add after port
+		ChallengeResponseAuthentication no
+		PasswordAuthentication no
+		UsePAM no
+		```
+	*/
+
 	return nil
 }
