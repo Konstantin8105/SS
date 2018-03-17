@@ -15,11 +15,13 @@ func run(programArgs ...string) (_ []byte, err error) {
 	}()
 	command := strings.Split(commandPrefix, " ")
 	command = append(command, programArgs...)
+	for i := range command {
+		command[i] = strings.TrimSpace(command[i])
+	}
 again:
-	for inx := range command {
-		c := strings.TrimSpace(command[inx])
+	for inx, c := range command {
 		if len(c) == 0 {
-			if inx == len(command) {
+			if inx == len(command)-1 {
 				command = command[:inx]
 				continue
 			}

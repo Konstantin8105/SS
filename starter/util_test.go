@@ -6,9 +6,9 @@ import (
 )
 
 func TestRunWithEmptyArgument(t *testing.T) {
-	out, err := run("", "echo", "", "\"Hello\"", "")
+	out, err := run("", "  echo  ", "     ", "\"Hello\"", "   ")
 	if err != nil {
-		t.Errorf("Error for test with empty arguments")
+		t.Errorf("Error for test with empty arguments. err = %v", err)
 	}
 	if bytes.Compare(out, []byte("\"Hello\"\n")) != 0 {
 		t.Errorf("Cannot get correct result. output = `%s`",
