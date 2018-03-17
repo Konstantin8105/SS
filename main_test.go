@@ -83,7 +83,7 @@ func TestTravis(t *testing.T) {
 	if os.Getenv("TRAVIS") != "true" {
 		return
 	}
-	starter.SetCommandPrefix("")
+	starter.SetCommandPrefix("sudo")
 
 	f := true
 	runFlag = &f

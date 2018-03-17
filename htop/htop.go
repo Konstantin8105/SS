@@ -25,6 +25,7 @@ func (m Htop) Run() (err error) {
 		}
 	}()
 
+	// install
 	err = starter.IsInstalled(name)
 	if err != nil {
 		err = starter.Install(name)

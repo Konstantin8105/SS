@@ -5,6 +5,8 @@ go:
   - tip
 
 before_install:
+  - go get github.com/mattn/goveralls
+
   # install for test
   - go get -u -v github.com/bradleyjkemp/cupaloy
 
@@ -17,13 +19,14 @@ before_install:
   # - gometalinter --install
 
 script:
-  - . sudo ./travis/travis.sh
+  - . ./travis/travis.sh
+  - $GOPATH/bin/goveralls -service=travis-ci
 
 after_success:
   - include_cov=coverage.txt bash <(curl -s https://codecov.io/bash)
-  - sudo rm -f coverage.txt
+  - rm -f coverage.txt
 
 after_failure:
   # Print out the failures (removing a lot of the noise).
   - cat /tmp/out.txt
-  - sudo rm -f coverage.txt
+  - rm -f coverage.txt
