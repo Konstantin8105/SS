@@ -8,29 +8,27 @@ import (
 
 func init() {
 	var n Nginx
-	starter.Register(name, n)
+	n.ProgramName = "nginx"
+	starter.Register(n.ProgramName, n)
 }
-
-var (
-	name = "nginx"
-)
 
 // Nginx - program `nginx`
 type Nginx struct {
+	starter.SimpleInstall
 }
 
 // Run - running preparing the program
-func (m Nginx) Run() (err error) {
+func (n Nginx) Run() (err error) {
 	defer func() {
 		if err != nil {
-			err = fmt.Errorf("Cannot run %v. err = %v", name, err)
+			err = fmt.Errorf("Cannot run %v. err = %v", n.ProgramName, err)
 		}
 	}()
 
 	// install
-	err = starter.IsInstalled(name)
+	err = starter.IsInstalled(n.ProgramName)
 	if err != nil {
-		err = starter.Install(name)
+		err = starter.Install(n.ProgramName)
 		if err != nil {
 			return err
 		}
