@@ -15,6 +15,9 @@ import (
 	// vim
 	_ "github.com/Konstantin8105/ss/vim"
 
+	// mc
+	_ "github.com/Konstantin8105/ss/mc"
+
 	// nano
 	_ "github.com/Konstantin8105/ss/nano"
 
