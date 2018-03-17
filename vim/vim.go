@@ -15,9 +15,11 @@ var (
 	name = "vim"
 )
 
+// Vim - program `vim`
 type Vim struct {
 }
 
+// Run - running preparing the program
 func (m Vim) Run() (err error) {
 	defer func() {
 		if err != nil {

@@ -15,9 +15,11 @@ var (
 	name = "nginx"
 )
 
+// Nginx - program `nginx`
 type Nginx struct {
 }
 
+// Run - running preparing the program
 func (m Nginx) Run() (err error) {
 	defer func() {
 		if err != nil {

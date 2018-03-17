@@ -15,9 +15,11 @@ var (
 	name = "htop"
 )
 
+// Htop - program `htop`
 type Htop struct {
 }
 
+// Run - running preparing the program
 func (m Htop) Run() (err error) {
 	defer func() {
 		if err != nil {
