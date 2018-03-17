@@ -7,7 +7,12 @@ import (
 	"strings"
 )
 
-func run(programArgs ...string) (out []byte, err error) {
+func run(programArgs ...string) (_ []byte, err error) {
+	defer func() {
+		if err != nil {
+			err = fmt.Errorf("Cannot run program. err = %v", err)
+		}
+	}()
 	command := strings.Split(commandPrefix, " ")
 	command = append(command, programArgs...)
 again:
@@ -22,7 +27,19 @@ again:
 			goto again
 		}
 	}
-	return exec.Command(command[0], command[1:]...).CombinedOutput()
+
+	// with stderr analyze
+	cmd := exec.Command(command[0], command[1:]...)
+	var out bytes.Buffer
+	var stderr bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &stderr
+	err = cmd.Run()
+	if err != nil {
+		err = fmt.Errorf("err = %v.\n stderr = %v", err, stderr.String())
+		return
+	}
+	return out.Bytes(), nil
 }
 
 func IsInstalled(name string) error {

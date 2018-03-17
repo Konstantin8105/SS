@@ -8,7 +8,7 @@ import (
 
 func init() {
 	var n Htop
-	starter.Register("htop", n)
+	starter.Register(name, n)
 }
 
 var (
@@ -19,7 +19,11 @@ type Htop struct {
 }
 
 func (m Htop) Run() (err error) {
-	fmt.Println("htop: Run")
+	defer func() {
+		if err != nil {
+			err = fmt.Errorf("Cannot run %v. err = %v", name, err)
+		}
+	}()
 
 	err = starter.IsInstalled(name)
 	if err != nil {

@@ -8,13 +8,21 @@ import (
 
 func init() {
 	var n Nginx
-	starter.Register("nginx", n)
+	starter.Register(name, n)
 }
+
+var (
+	name = "nginx"
+)
 
 type Nginx struct {
 }
 
 func (m Nginx) Run() (err error) {
-	fmt.Println("nginx : Run")
+	defer func() {
+		if err != nil {
+			err = fmt.Errorf("Cannot run %v. err = %v", name, err)
+		}
+	}()
 	return nil
 }
