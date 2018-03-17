@@ -14,7 +14,7 @@ func TestListSize(t *testing.T) {
 	if len(starter.List()) == 0 {
 		t.Fatalf("starter list is empty")
 	}
-	if len(starter.List()) != 3 {
+	if len(starter.List()) != 4 {
 		t.Fatalf("starter list have uncorrect size : %v",
 			len(starter.List()))
 	}
@@ -96,8 +96,8 @@ func TestHelp(t *testing.T) {
 
 	expect := []byte(`Usage of ./ss:
   -h	give this help list
+  -i	install settings
   -l	show list of modules
-  -r	install settings
   -v	print the version and exit
 `)
 
@@ -120,11 +120,11 @@ func TestTravis(t *testing.T) {
 	starter.SetCommandPrefix("sudo")
 
 	f := true
-	runFlag = &f
+	installFlag = &f
 	defer func() {
 		// return value back
 		f = false
-		runFlag = &f
+		installFlag = &f
 	}()
 
 	err := run()
@@ -152,11 +152,11 @@ func TestLocally(t *testing.T) {
 	// TODO : starter.SetCommandPrefix(" docker run ubuntu:16.04 ")
 
 	f := true
-	runFlag = &f
+	installFlag = &f
 	defer func() {
 		// return value back
 		f = false
-		runFlag = &f
+		installFlag = &f
 	}()
 
 	err := run()

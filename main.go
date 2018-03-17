@@ -15,6 +15,9 @@ import (
 	// vim
 	_ "github.com/Konstantin8105/ss/vim"
 
+	// nano
+	_ "github.com/Konstantin8105/ss/nano"
+
 	// ssh
 	// backup
 	// systemd
@@ -36,7 +39,7 @@ var (
 	helpFlag    = flag.Bool("h", false, "give this help list")
 	versionFlag = flag.Bool("v", false, "print the version and exit")
 	listFlag    = flag.Bool("l", false, "show list of modules")
-	runFlag     = flag.Bool("r", false, "install settings")
+	installFlag = flag.Bool("i", false, "install settings")
 )
 
 /*
@@ -75,7 +78,7 @@ func run() (err error) {
 		}
 		fmt.Fprintf(output, "Amount of starters : %2d\n", len(list))
 
-	case *runFlag:
+	case *installFlag:
 		// set settings
 		list := starter.List()
 		var inx int
