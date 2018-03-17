@@ -65,19 +65,21 @@ func run() int {
 		// list of modules
 		fmt.Fprintf(output, "List of starters :\n")
 		list := starter.List()
-		for inx, s := range list {
-			inx := inx + 1
-			fmt.Fprintf(output, "%2d%20s\n", inx, s)
+		var inx int
+		for name := range list {
+			inx += 1
+			fmt.Fprintf(output, "%2d%20s\n", inx, name)
 		}
 		fmt.Fprintf(output, "Amount of starters : %2d\n", len(list))
 
 	case *testFlag:
 		// testing settings
 		list := starter.List()
-		for inx, s := range list {
-			inx := inx + 1
-			fmt.Fprintf(output, "%2d%20s\n", inx, s)
-			err := starter.Test(s)
+		var inx int
+		for name, s := range list {
+			inx += 1
+			fmt.Fprintf(output, "%2d%20s\n", inx, name)
+			err := s.Test()
 			if err != nil {
 				return 1
 			}
@@ -86,10 +88,11 @@ func run() int {
 	case *setFlag:
 		// set settings
 		list := starter.List()
-		for inx, s := range list {
-			inx := inx + 1
-			fmt.Fprintf(output, "%2d%20s\n", inx, s)
-			starter.Set(s)
+		var inx int
+		for name, s := range list {
+			inx += 1
+			fmt.Fprintf(output, "%2d%20s\n", inx, name)
+			s.Set()
 		}
 
 	default:

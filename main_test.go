@@ -85,7 +85,25 @@ func TestHelp(t *testing.T) {
 	}
 }
 
-func TestSettingTest(t *testing.T) {
+func TestIntegration(t *testing.T) {
+	if os.Getenv("TRAVIS") == "true" {
+		// Inside travis no need to in docker container
+		starter.SetCommandPrefix("")
+	} else {
+		// # Example of creating container in according
+		// # to ubuntu image
+		// → docker container create ubuntu:16.04
+		// 7f41440ca37ff95715c8af66f16fa432e47c341e6593b73d0de02173220ce706
+		out, err := exec.Command(
+			"docker", "container", "create", "ubuntu:16.04").CombinedOutput()
+		if err != nil {
+			t.Fatalf("cannot create container. err = %v", err)
+		}
+
+		starter.SetCommandPrefix(" echo ")
+		// TODO : starter.SetCommandPrefix(" docker run ubuntu:16.04 ")
+	}
+
 	os.Args = []string{"program", "-t"}
 	code := run()
 	if code != 0 {
@@ -95,12 +113,3 @@ func TestSettingTest(t *testing.T) {
 	f := false
 	testFlag = &f
 }
-
-/*
-func TestIntegration(t *testing.T) {
-	if os.Getenv("TRAVIS") != "true" {
-		// This is not inside travis, so
-		// run inside docker
-	}
-}
-*/

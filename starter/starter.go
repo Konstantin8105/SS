@@ -2,7 +2,6 @@ package starter
 
 import (
 	"fmt"
-	"sort"
 	"sync"
 )
 
@@ -13,8 +12,9 @@ type Starter interface {
 }
 
 var (
-	starters map[string]Starter
-	m        sync.Mutex
+	starters      map[string]Starter
+	m             sync.Mutex
+	commandPrefix string
 )
 
 func init() {
@@ -22,16 +22,18 @@ func init() {
 }
 
 // List returns a sorted list of the names of the registered starters.
-func List() []string {
+func List() map[string]Starter {
 	m.Lock()
 	defer m.Unlock()
 
-	var list []string
-	for name := range starters {
-		list = append(list, name)
-	}
-	sort.Strings(list)
-	return list
+	return starters
+}
+
+func SetCommandPrefix(prefix string) {
+	m.Lock()
+	defer m.Unlock()
+
+	commandPrefix = prefix
 }
 
 // Register makes a starter available by the provided name.
