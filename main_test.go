@@ -106,7 +106,7 @@ func TestHelp(t *testing.T) {
 			len(out), len(expect))
 	}
 
-	if bytes.Compare(out, expect) != 0 {
+	if !bytes.Equal(out, expect) {
 		t.Errorf("result of help argument is not expected.\n%v\nExpected:\n%v\n",
 			string(out), string(expect))
 	}

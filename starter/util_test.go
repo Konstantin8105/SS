@@ -10,7 +10,7 @@ func TestRunWithEmptyArgument(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error for test with empty arguments. err = %v", err)
 	}
-	if bytes.Compare(out, []byte("\"Hello\"\n")) != 0 {
+	if !bytes.Equal(out, []byte("\"Hello\"\n")) {
 		t.Errorf("Cannot get correct result. output = `%s`",
 			string(out))
 	}

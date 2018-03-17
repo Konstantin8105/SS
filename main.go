@@ -70,7 +70,7 @@ func run() (err error) {
 		list := starter.List()
 		var inx int
 		for name := range list {
-			inx += 1
+			inx++
 			fmt.Fprintf(output, "%2d%20s\n", inx, name)
 		}
 		fmt.Fprintf(output, "Amount of starters : %2d\n", len(list))
@@ -80,7 +80,7 @@ func run() (err error) {
 		list := starter.List()
 		var inx int
 		for name, s := range list {
-			inx += 1
+			inx++
 			fmt.Fprintf(output, "%2d%20s\n", inx, name)
 			err = s.Run()
 			if err != nil {
