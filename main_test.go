@@ -14,7 +14,7 @@ func TestListSize(t *testing.T) {
 	if len(starter.List()) == 0 {
 		t.Fatalf("starter list is empty")
 	}
-	if len(starter.List()) != 5 {
+	if len(starter.List()) != 6 {
 		t.Fatalf("starter list have uncorrect size : %v",
 			len(starter.List()))
 	}
