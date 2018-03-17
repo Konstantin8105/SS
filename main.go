@@ -34,8 +34,7 @@ var (
 	helpFlag    = flag.Bool("h", false, "give this help list")
 	versionFlag = flag.Bool("v", false, "print the version and exit")
 	listFlag    = flag.Bool("l", false, "show list of modules")
-	testFlag    = flag.Bool("t", false, "testing settings")
-	setFlag     = flag.Bool("s", false, "set settings")
+	runFlag     = flag.Bool("r", false, "install settings")
 )
 
 /*
@@ -47,6 +46,7 @@ Notes:
 */
 
 func main() {
+	flag.Parse()
 	err := run()
 	if err != nil {
 		os.Exit(1)
@@ -55,8 +55,7 @@ func main() {
 
 var output io.Writer = os.Stdout
 
-func run() error {
-	flag.Parse()
+func run() (err error) {
 
 	switch {
 	case *versionFlag:
@@ -74,27 +73,17 @@ func run() error {
 		}
 		fmt.Fprintf(output, "Amount of starters : %2d\n", len(list))
 
-	case *testFlag:
-		// testing settings
-		list := starter.List()
-		var inx int
-		for name, s := range list {
-			inx += 1
-			fmt.Fprintf(output, "%2d%20s\n", inx, name)
-			err := s.Test()
-			if err != nil {
-				return err
-			}
-		}
-
-	case *setFlag:
+	case *runFlag:
 		// set settings
 		list := starter.List()
 		var inx int
 		for name, s := range list {
 			inx += 1
 			fmt.Fprintf(output, "%2d%20s\n", inx, name)
-			s.Set()
+			err = s.Run()
+			if err != nil {
+				return err
+			}
 		}
 
 	default:

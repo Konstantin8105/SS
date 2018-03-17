@@ -7,8 +7,7 @@ import (
 
 // Starter - base interface
 type Starter interface {
-	Test() error
-	Set()
+	Run() error
 }
 
 var (

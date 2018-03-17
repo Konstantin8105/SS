@@ -18,15 +18,16 @@ var (
 type Htop struct {
 }
 
-func (m Htop) Test() (err error) {
-	fmt.Println("htop: Test")
+func (m Htop) Run() (err error) {
+	fmt.Println("htop: Run")
+
 	err = starter.IsInstalled(name)
 	if err != nil {
-		return err
+		err = starter.Install(name)
+		if err != nil {
+			return err
+		}
 	}
-	return nil
-}
 
-func (m Htop) Set() {
-	fmt.Println("htop : Set ")
+	return nil
 }

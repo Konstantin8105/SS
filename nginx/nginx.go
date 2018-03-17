@@ -14,11 +14,7 @@ func init() {
 type Nginx struct {
 }
 
-func (m Nginx) Test() (err error) {
-	fmt.Println("nginx : Test")
+func (m Nginx) Run() (err error) {
+	fmt.Println("nginx : Run")
 	return nil
-}
-
-func (m Nginx) Set() {
-	fmt.Println("nginx : Set ")
 }

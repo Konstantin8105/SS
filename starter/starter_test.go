@@ -14,10 +14,8 @@ func TestEmpty(t *testing.T) {
 
 type testStarter struct{}
 
-func (t testStarter) Test() error {
+func (t testStarter) Run() error {
 	return nil
-}
-func (t testStarter) Set() {
 }
 
 func TestDublicate(t *testing.T) {

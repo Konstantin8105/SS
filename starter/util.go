@@ -40,3 +40,14 @@ func IsInstalled(name string) error {
 
 	return nil
 }
+
+func Install(name string) (err error) {
+	_, err = run("apt", "install", "-y", name)
+	if err != nil {
+		return fmt.Errorf("cannot build program. err = %v", err)
+	}
+
+	fmt.Printf("Install program `%s`\n", name)
+
+	return nil
+}
