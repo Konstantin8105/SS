@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"os"
 	"os/exec"
+	"strings"
 	"testing"
 
 	"github.com/Konstantin8105/ss/starter"
@@ -16,6 +17,39 @@ func TestListSize(t *testing.T) {
 	if len(starter.List()) != 3 {
 		t.Fatalf("starter list have uncorrect size : %v",
 			len(starter.List()))
+	}
+}
+
+func TestListCLI(t *testing.T) {
+	f := true
+	listFlag = &f
+	defer func() {
+		// return value back
+		f = false
+		listFlag = &f
+	}()
+
+	oldOutput := output
+	defer func() {
+		output = oldOutput
+	}()
+	var buf bytes.Buffer
+	output = &buf
+
+	err := run()
+	if err != nil {
+		t.Errorf("List cli error : %v", err)
+	}
+
+	if buf.Len() == 0 {
+		t.Fatalf("Buffer is empty")
+	}
+
+	list := starter.List()
+	for name := range list {
+		if !strings.Contains(buf.String(), name) {
+			t.Errorf("Cannot found starter name = `%s`", name)
+		}
 	}
 }
 
