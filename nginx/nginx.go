@@ -26,12 +26,9 @@ func (n Nginx) Run() (err error) {
 	}()
 
 	// install
-	err = starter.IsInstalled(n.ProgramName)
+	n.SimpleInstall.Run()
 	if err != nil {
-		err = starter.Install(n.ProgramName)
-		if err != nil {
-			return err
-		}
+		return err
 	}
 
 	return nil
