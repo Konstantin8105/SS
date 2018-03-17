@@ -5,10 +5,9 @@ go:
   - tip
 
 before_install:
+  # coverage
+  - go get golang.org/x/tools/cmd/cover
   - go get github.com/mattn/goveralls
-
-  # install for test
-  - go get -u -v github.com/bradleyjkemp/cupaloy
 
   # gocovmerge is used to merge all the separate unit/integration test coverage
   # profiles.
@@ -23,7 +22,7 @@ script:
   - $GOPATH/bin/goveralls -service=travis-ci
 
 after_success:
-  - include_cov=coverage.txt bash <(curl -s https://codecov.io/bash)
+  - $GOPATH/bin/goveralls -coverprofile=coverage.txt -service=travis-ci
   - rm -f coverage.txt
 
 after_failure:
