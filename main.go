@@ -19,6 +19,8 @@ import (
 	_ "github.com/Konstantin8105/ss/nano"
 
 	// ssh
+	_ "github.com/Konstantin8105/ss/ssh"
+
 	// backup
 	// systemd
 	// git server
