@@ -37,6 +37,14 @@ func SetCommandPrefix(prefix string) {
 	commandPrefix = prefix
 }
 
+// GetCommandPrefix return used command prefix
+func GetCommandPrefix() string {
+	m.Lock()
+	defer m.Unlock()
+
+	return commandPrefix
+}
+
 // Register makes a starter available by the provided name.
 // If Register is called twice with the same name or if starter is nil,
 // it panics.

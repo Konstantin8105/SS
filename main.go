@@ -40,6 +40,7 @@ var (
 	versionFlag = flag.Bool("v", false, "print the version and exit")
 	listFlag    = flag.Bool("l", false, "show list of modules")
 	installFlag = flag.Bool("i", false, "install settings")
+	prefixFlag  = flag.String("prefix", "", "prefix before each command. Typically used :\"sudo\" or \"ssh tom@localhost sudo\" or ...")
 )
 
 /*
@@ -61,6 +62,10 @@ func main() {
 var output io.Writer = os.Stdout
 
 func run() (err error) {
+
+	if len(*prefixFlag) != 0 {
+		starter.SetCommandPrefix(*prefixFlag)
+	}
 
 	switch {
 	case *versionFlag:

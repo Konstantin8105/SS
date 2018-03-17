@@ -98,6 +98,8 @@ func TestHelp(t *testing.T) {
   -h	give this help list
   -i	install settings
   -l	show list of modules
+  -prefix string
+    	prefix before each command. Typically used :"sudo" or "ssh tom@localhost sudo" or ...
   -v	print the version and exit
 `)
 
@@ -117,7 +119,13 @@ func TestTravis(t *testing.T) {
 	if os.Getenv("TRAVIS") != "true" {
 		return
 	}
-	starter.SetCommandPrefix("sudo")
+	oldPrefix := starter.GetCommandPrefix()
+	p := "sudo"
+	prefixFlag = &p
+	defer func() {
+		starter.SetCommandPrefix(oldPrefix)
+		prefixFlag = &oldPrefix
+	}()
 
 	f := true
 	installFlag = &f
@@ -137,7 +145,13 @@ func TestLocally(t *testing.T) {
 	if os.Getenv("TRAVIS") == "true" {
 		return
 	}
-	starter.SetCommandPrefix("sudo")
+	oldPrefix := starter.GetCommandPrefix()
+	p := "sudo"
+	prefixFlag = &p
+	defer func() {
+		starter.SetCommandPrefix(oldPrefix)
+		prefixFlag = &oldPrefix
+	}()
 	// # Example of creating container in according
 	// # to ubuntu image
 	// → docker container create ubuntu:16.04
