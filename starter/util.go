@@ -45,7 +45,8 @@ again:
 func IsInstalled(name string) error {
 	out, err := run("dpkg", "-s", name)
 	if err != nil {
-		return fmt.Errorf("cannot build program. err = %v", err)
+		return fmt.Errorf("cannot found program `%s`. err = %v",
+			name, err)
 	}
 
 	if !bytes.Contains(out, []byte("install ok installed")) {
@@ -61,7 +62,8 @@ func IsInstalled(name string) error {
 func Install(name string) (err error) {
 	_, err = run("apt", "install", "-y", name)
 	if err != nil {
-		return fmt.Errorf("cannot build program. err = %v", err)
+		return fmt.Errorf("cannot install program `%s`. err = %v",
+			name, err)
 	}
 
 	fmt.Printf("Install program `%s`\n", name)
