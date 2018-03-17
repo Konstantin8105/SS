@@ -60,7 +60,3 @@ echo "Unit tests: ${UNIT_TESTS}"
 echo "Integration tests: ${INT_TESTS}"
 
 cat $OUTFILE
-
-if [ -f coverage.txt ]; then
-	rm -f coverage.txt
-fi

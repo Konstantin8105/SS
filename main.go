@@ -47,13 +47,15 @@ Notes:
 */
 
 func main() {
-	code := run()
-	os.Exit(code)
+	err := run()
+	if err != nil {
+		os.Exit(1)
+	}
 }
 
 var output io.Writer = os.Stdout
 
-func run() int {
+func run() error {
 	flag.Parse()
 
 	switch {
@@ -81,7 +83,7 @@ func run() int {
 			fmt.Fprintf(output, "%2d%20s\n", inx, name)
 			err := s.Test()
 			if err != nil {
-				return 1
+				return err
 			}
 		}
 
@@ -99,5 +101,5 @@ func run() int {
 		// help flag
 		flag.Usage()
 	}
-	return 0
+	return nil
 }

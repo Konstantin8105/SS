@@ -21,7 +21,9 @@ script:
 
 after_success:
   - include_cov=coverage.txt bash <(curl -s https://codecov.io/bash)
+  - rm -f coverage.txt
 
 after_failure:
   # Print out the failures (removing a lot of the noise).
   - cat /tmp/out.txt
+  - rm -f coverage.txt

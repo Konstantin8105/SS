@@ -9,49 +9,15 @@ import (
 	"testing"
 
 	"github.com/Konstantin8105/ss/starter"
-	"github.com/bradleyjkemp/cupaloy"
 )
 
-func setupTest(args []string) (*bytes.Buffer, func()) {
-	buf := &bytes.Buffer{}
-	oldOutput := output
-	oldArgs := os.Args
-
-	output = buf
-	os.Args = args
-
-	return buf, func() {
-		output = oldOutput
-		os.Args = oldArgs
-	}
-}
-
-var cliTests = map[string][]string{
-	"List": {"./ss", "-l"},
-}
-
-func TestCLI(t *testing.T) {
-	for testName, args := range cliTests {
-		t.Run(testName, func(t *testing.T) {
-			output, teardown := setupTest(args)
-			defer teardown()
-
-			run()
-
-			err := cupaloy.SnapshotMulti(testName, output)
-			if err != nil {
-				t.Fatalf("error: %s", err)
-			}
-		})
-	}
-	// return value back
-	f := false
-	listFlag = &f
-}
-
-func TestEmptyList(t *testing.T) {
+func TestListSize(t *testing.T) {
 	if len(starter.List()) == 0 {
 		t.Fatalf("starter list is empty")
+	}
+	if len(starter.List()) != 2 {
+		t.Fatalf("starter list have uncorrect size : %v",
+			len(starter.List()))
 	}
 }
 
@@ -94,20 +60,20 @@ func TestIntegration(t *testing.T) {
 		// # to ubuntu image
 		// → docker container create ubuntu:16.04
 		// 7f41440ca37ff95715c8af66f16fa432e47c341e6593b73d0de02173220ce706
-		out, err := exec.Command(
-			"docker", "container", "create", "ubuntu:16.04").CombinedOutput()
-		if err != nil {
-			t.Fatalf("cannot create container. err = %v", err)
-		}
+		// out, err := exec.Command(
+		// 	"docker", "container", "create", "ubuntu:16.04").CombinedOutput()
+		// if err != nil {
+		// 	t.Fatalf("cannot create container. err = %v", err)
+		// }
 
-		starter.SetCommandPrefix(" echo ")
+		// starter.SetCommandPrefix(" echo ")
 		// TODO : starter.SetCommandPrefix(" docker run ubuntu:16.04 ")
 	}
 
 	os.Args = []string{"program", "-t"}
-	code := run()
-	if code != 0 {
-		t.Errorf("Exit code for flag '-t' is %v", code)
+	err := run()
+	if err != nil {
+		t.Errorf("Error in integration test is %v", err)
 	}
 	// return value back
 	f := false
