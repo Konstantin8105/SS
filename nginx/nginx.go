@@ -31,5 +31,13 @@ func (n Nginx) Run() (err error) {
 		return err
 	}
 
+	// TODO: add configuration
+	// TODO: sudo /etc/init.d/nginx restart
+	// TODO: sudo /etc/init.d/mysql status
+	// TODO: add logging
+	// log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+	//                   '$status $body_bytes_sent "$http_referer" '
+	//                   '"$http_user_agent" "$http_x_forwarded_for"';
+
 	return nil
 }
