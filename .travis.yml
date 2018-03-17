@@ -17,13 +17,13 @@ before_install:
   # - gometalinter --install
 
 script:
-  - . ./travis/travis.sh
+  - . sudo ./travis/travis.sh
 
 after_success:
   - include_cov=coverage.txt bash <(curl -s https://codecov.io/bash)
-  - rm -f coverage.txt
+  - sudo rm -f coverage.txt
 
 after_failure:
   # Print out the failures (removing a lot of the noise).
   - cat /tmp/out.txt
-  - rm -f coverage.txt
+  - sudo rm -f coverage.txt

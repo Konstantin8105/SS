@@ -19,6 +19,36 @@ func TestListSize(t *testing.T) {
 	}
 }
 
+func TestVersion(t *testing.T) {
+	f := true
+	versionFlag = &f
+	defer func() {
+		// return value back
+		f = false
+		versionFlag = &f
+	}()
+
+	oldOutput := output
+	defer func() {
+		output = oldOutput
+	}()
+	var buf bytes.Buffer
+	output = &buf
+
+	err := run()
+	if err != nil {
+		t.Errorf("Version test error : %v", err)
+	}
+
+	if buf.Len() == 0 {
+		t.Errorf("Version name is empty : `%v`", buf.String())
+	}
+
+	if len(version) == 0 {
+		t.Errorf("Version variable is empty : `%v`", version)
+	}
+}
+
 func TestHelp(t *testing.T) {
 	_, err := exec.Command("go", "build").CombinedOutput()
 	if err != nil {
@@ -53,11 +83,12 @@ func TestTravis(t *testing.T) {
 	if os.Getenv("TRAVIS") != "true" {
 		return
 	}
-	starter.SetCommandPrefix("sudo")
+	starter.SetCommandPrefix("")
 
 	f := true
 	runFlag = &f
 	defer func() {
+		// return value back
 		f = false
 		runFlag = &f
 	}()
@@ -66,7 +97,6 @@ func TestTravis(t *testing.T) {
 	if err != nil {
 		t.Errorf("Travis test error : %v", err)
 	}
-	// return value back
 }
 
 func TestLocally(t *testing.T) {
@@ -86,21 +116,16 @@ func TestLocally(t *testing.T) {
 	// starter.SetCommandPrefix(" echo ")
 	// TODO : starter.SetCommandPrefix(" docker run ubuntu:16.04 ")
 
-	var err error
-	{
-		var fl bool
-		fl = true
-		runFlag = &fl
-	}
+	f := true
+	runFlag = &f
+	defer func() {
+		// return value back
+		f = false
+		runFlag = &f
+	}()
 
-	err = run()
+	err := run()
 	if err != nil {
 		t.Errorf("Locally test error : %v", err)
-	}
-
-	{
-		var fl bool
-		fl = false
-		runFlag = &fl
 	}
 }
