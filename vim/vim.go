@@ -1,4 +1,4 @@
-package nginx
+package vim
 
 import (
 	"fmt"
@@ -7,18 +7,18 @@ import (
 )
 
 func init() {
-	var n Nginx
+	var n Vim
 	starter.Register(name, n)
 }
 
 var (
-	name = "nginx"
+	name = "vim"
 )
 
-type Nginx struct {
+type Vim struct {
 }
 
-func (m Nginx) Run() (err error) {
+func (m Vim) Run() (err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("Cannot run %v. err = %v", name, err)

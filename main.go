@@ -12,6 +12,9 @@ import (
 	// htop
 	_ "github.com/Konstantin8105/ss/htop"
 
+	// vim
+	_ "github.com/Konstantin8105/ss/vim"
+
 	// ssh
 	// backup
 	// systemd
@@ -19,7 +22,6 @@ import (
 	// git web
 	// localhost
 	// router settings
-	// vim
 	// system update
 
 	// base `starter` package

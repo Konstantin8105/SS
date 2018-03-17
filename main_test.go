@@ -13,7 +13,7 @@ func TestListSize(t *testing.T) {
 	if len(starter.List()) == 0 {
 		t.Fatalf("starter list is empty")
 	}
-	if len(starter.List()) != 2 {
+	if len(starter.List()) != 3 {
 		t.Fatalf("starter list have uncorrect size : %v",
 			len(starter.List()))
 	}
@@ -103,6 +103,7 @@ func TestLocally(t *testing.T) {
 	if os.Getenv("TRAVIS") == "true" {
 		return
 	}
+	starter.SetCommandPrefix("sudo")
 	// # Example of creating container in according
 	// # to ubuntu image
 	// → docker container create ubuntu:16.04
