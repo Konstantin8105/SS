@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"os"
 	"os/exec"
 	"strings"
 	"testing"
@@ -85,36 +84,45 @@ func TestHelp(t *testing.T) {
 }
 
 // Inside travis no need to in docker container
-func TestTravis(t *testing.T) {
-	if os.Getenv("TRAVIS") != "true" {
-		return
-	}
-	oldPrefix := starter.GetCommandPrefix()
-	p := "sudo"
-	prefixFlag = &p
-	defer func() {
-		starter.SetCommandPrefix(oldPrefix)
-		prefixFlag = &oldPrefix
-	}()
+// func TestTravis(t *testing.T) {
+// 	if os.Getenv("TRAVIS") != "true" {
+// 		return
+// 	}
+// 	oldPrefix := starter.GetCommandPrefix()
+// 	p := "sudo"
+// 	prefixFlag = &p
+// 	defer func() {
+// 		starter.SetCommandPrefix(oldPrefix)
+// 		prefixFlag = &oldPrefix
+// 	}()
+//
+// 	f := true
+// 	installFlag = &f
+// 	defer func() {
+// 		// return value back
+// 		f = false
+// 		installFlag = &f
+// 	}()
+//
+// 	err := run()
+// 	if err != nil {
+// 		t.Errorf("Travis test error : %v", err)
+// 	}
+// }
 
-	f := true
-	installFlag = &f
-	defer func() {
-		// return value back
-		f = false
-		installFlag = &f
-	}()
-
-	err := run()
+func TestServer(t *testing.T) {
+	// get ubuntu image
+	_, err := exec.Command("sudo docker pull ubuntu:16.04").Output()
 	if err != nil {
-		t.Errorf("Travis test error : %v", err)
+		t.Fatalf(err)
 	}
-}
 
-func TestLocally(t *testing.T) {
-	if os.Getenv("TRAVIS") == "true" {
-		return
-	}
+	// change root password
+	// "echo -e \"NEWPASS\nNEWPASS\" | passwd root"
+
+	// if os.Getenv("TRAVIS") == "true" {
+	// 	return
+	// }
 	oldPrefix := starter.GetCommandPrefix()
 	p := "sudo"
 	prefixFlag = &p
