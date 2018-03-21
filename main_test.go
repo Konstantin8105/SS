@@ -53,36 +53,6 @@ func TestListCLI(t *testing.T) {
 	}
 }
 
-func TestVersion(t *testing.T) {
-	f := true
-	versionFlag = &f
-	defer func() {
-		// return value back
-		f = false
-		versionFlag = &f
-	}()
-
-	oldOutput := output
-	defer func() {
-		output = oldOutput
-	}()
-	var buf bytes.Buffer
-	output = &buf
-
-	err := run()
-	if err != nil {
-		t.Errorf("Version test error : %v", err)
-	}
-
-	if buf.Len() == 0 {
-		t.Errorf("Version name is empty : `%v`", buf.String())
-	}
-
-	if len(version) == 0 {
-		t.Errorf("Version variable is empty : `%v`", version)
-	}
-}
-
 func TestHelp(t *testing.T) {
 	_, err := exec.Command("go", "build").CombinedOutput()
 	if err != nil {
@@ -100,7 +70,6 @@ func TestHelp(t *testing.T) {
   -l	show list of modules
   -prefix string
     	prefix before each command. Typically used :"sudo" or "ssh tom@localhost sudo" or ...
-  -v	print the version and exit
 `)
 
 	if len(out) != len(expect) {

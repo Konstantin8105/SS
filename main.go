@@ -36,13 +36,8 @@ import (
 	"github.com/Konstantin8105/ss/starter"
 )
 
-const (
-	version string = "0.2"
-)
-
 var (
 	helpFlag    = flag.Bool("h", false, "give this help list")
-	versionFlag = flag.Bool("v", false, "print the version and exit")
 	listFlag    = flag.Bool("l", false, "show list of modules")
 	installFlag = flag.Bool("i", false, "install settings")
 	prefixFlag  = flag.String("prefix", "", "prefix before each command. Typically used :\"sudo\" or \"ssh tom@localhost sudo\" or ...")
@@ -317,10 +312,6 @@ func run() (err error) {
 	}
 
 	switch {
-	case *versionFlag:
-		// version flag
-		fmt.Fprintf(output, "Version : %s\n", version)
-
 	case *listFlag:
 		// list of modules
 		fmt.Fprintf(output, "List of starters :\n")
