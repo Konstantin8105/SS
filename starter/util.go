@@ -78,3 +78,35 @@ func Install(name string) (err error) {
 
 	return nil
 }
+
+// ServiceState is state of systemctl service
+type ServiceState string
+
+const (
+	ServiceStop    ServiceState = "stop"
+	ServiceStart                = "start"
+	ServiceRestart              = "restart"
+	ServiceStatus               = "status"
+)
+
+// ServiceAction run action for service
+// systemctl <action> <service-name>
+// Example : systemctl restart ssh
+func ServiceAction(state ServiceState, serviceName string) (err error) {
+	out, err := run("systemctl", string(state), serviceName)
+
+	if len(out) > 0 {
+		fmt.Printf("Service: %v\nState : %v\n Result = %v\n",
+			serviceName, string(state), string(out))
+	}
+
+	return
+}
+
+// WriteFile is write file
+func WriteFile(location string, body []byte) (err error) {
+	_, err = run("echo", string(append(append([]byte("'"), body...), '\'')),
+		">", location)
+
+	return
+}

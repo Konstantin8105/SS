@@ -307,6 +307,7 @@ func main() {
 	flag.Parse()
 	err := run()
 	if err != nil {
+		fmt.Printf("Error = %v", err)
 		os.Exit(1)
 	}
 }
