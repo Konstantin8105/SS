@@ -40,7 +40,8 @@ var (
 	helpFlag    = flag.Bool("h", false, "give this help list")
 	listFlag    = flag.Bool("l", false, "show list of modules")
 	installFlag = flag.Bool("i", false, "install settings")
-	prefixFlag  = flag.String("prefix", "", "prefix before each command. Typically used :\"sudo\" or \"ssh tom@localhost sudo\" or ...")
+	prefixFlag  = flag.String("prefix", "", "prefix before each command."+
+		" Typically used :\"sudo\" or \"ssh tom@localhost sudo\" or ...")
 )
 
 /*
@@ -155,7 +156,11 @@ BSS 00:14:d1:9c:1f:c8 (on wlan0)
 		 * Capabilities: (0x0000)
         ... sniped ...
 ```
-The 2 important pieces of information from the above are the SSID and the security protocol (WPA/WPA2 vs WEP). The SSID from the above example is gorilla. The security protocol is RSN, also commonly referred to as WPA2. The security protocol is important because it determines what tool you use to connect to the network.
+The 2 important pieces of information from the above are the SSID and the
+security protocol (WPA/WPA2 vs WEP). The SSID from the above example is
+gorilla. The security protocol is RSN, also commonly referred to as WPA2.
+The security protocol is important because it determines what tool you use
+to connect to the network.
 
 5. Connect to WPA/WPA2 WiFi network.
 
@@ -218,7 +223,10 @@ The last configuration step is to make sure that you have the proper routing rul
 ```
 $ ip route show
 192.168.1.0/24 dev wlan0  proto kernel  scope link  src 192.168.1.113
-The above routing table contains only 1 rule which redirects all traffic destined for the local subnet (192.168.1.x) to the wlan0 interface. You may want to add a default routing rule to pass all other traffic through wlan0 as well.
+The above routing table contains only 1 rule which redirects all traffic
+destined for the local subnet (192.168.1.x) to the wlan0 interface.
+You may want to add a default routing rule to pass all other traffic
+through wlan0 as well.
 
 $ sudo ip route add default via 192.168.1.254 dev wlan0
 $ ip route show
