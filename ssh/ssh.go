@@ -9,7 +9,7 @@ import (
 func init() {
 	var n SSH
 	n.ProgramName = "ssh"
-	starter.Register(n.ProgramName, n)
+	starter.Register(n.ProgramName, &n)
 }
 
 // SSH - program `ssh`

@@ -7,5 +7,5 @@ import (
 func init() {
 	var n starter.SimpleInstall
 	n.ProgramName = "mc"
-	starter.Register(n.ProgramName, n)
+	starter.Register(n.ProgramName, &n)
 }

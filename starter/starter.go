@@ -9,18 +9,19 @@ type Starter interface {
 	Run() error
 }
 
+type StarterItem struct {
+	Name string
+	S    Starter
+}
+
 var (
-	starters      map[string]Starter
+	starters      []StarterItem
 	m             sync.Mutex
 	commandPrefix string
 )
 
-func init() {
-	starters = map[string]Starter{}
-}
-
 // List returns a sorted list of the names of the registered starters.
-func List() map[string]Starter {
+func List() []StarterItem {
 	m.Lock()
 	defer m.Unlock()
 
@@ -55,9 +56,14 @@ func Register(name string, starter Starter) {
 	if starter == nil {
 		panic("Starter is nil")
 	}
-	if _, dup := starters[name]; dup {
-		panic("Starter called twice for " + name)
+	for _, item := range starters {
+		if item.Name == name {
+			panic("Starter called twice for " + name)
+		}
 	}
 
-	starters[name] = starter
+	starters = append(starters, StarterItem{
+		Name: name,
+		S:    starter,
+	})
 }

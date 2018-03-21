@@ -9,7 +9,7 @@ import (
 func init() {
 	var n Nginx
 	n.ProgramName = "nginx"
-	starter.Register(n.ProgramName, n)
+	starter.Register(n.ProgramName, &n)
 }
 
 // Nginx - program `nginx`

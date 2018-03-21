@@ -46,9 +46,10 @@ func TestListCLI(t *testing.T) {
 	}
 
 	list := starter.List()
-	for name := range list {
-		if !strings.Contains(buf.String(), name) {
-			t.Errorf("Cannot found starter name = `%s`", name)
+	for i := range list {
+		if !strings.Contains(buf.String(), list[i].Name) {
+			t.Errorf("Cannot found starter name = `%s`\nIn buffer: %v",
+				list[i].Name, buf.String())
 		}
 	}
 }

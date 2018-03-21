@@ -325,21 +325,17 @@ func run() (err error) {
 		// list of modules
 		fmt.Fprintf(output, "List of starters :\n")
 		list := starter.List()
-		var inx int
-		for name := range list {
-			inx++
-			fmt.Fprintf(output, "%2d%20s\n", inx, name)
+		for inx := range list {
+			fmt.Fprintf(output, "%2d%20s\n", inx+1, list[inx].Name)
 		}
 		fmt.Fprintf(output, "Amount of starters : %2d\n", len(list))
 
 	case *installFlag:
 		// set settings
 		list := starter.List()
-		var inx int
-		for name, s := range list {
-			inx++
-			fmt.Fprintf(output, "%2d%20s\n", inx, name)
-			err = s.Run()
+		for inx := range list {
+			fmt.Fprintf(output, "%2d%20s\n", inx+1, list[inx].Name)
+			err = list[inx].S.Run()
 			if err != nil {
 				return err
 			}
